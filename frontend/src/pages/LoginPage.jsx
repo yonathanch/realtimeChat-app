@@ -32,7 +32,7 @@ const LoginPage = () => {
               >
                 <MessageSquare className="w-6 h-6 text-primary " />
               </div>
-              <h1 className="text-2xl font-bold mt-2">Welcome Back</h1>
+              <h1 className="text-2xl font-bold mt-2">Welcome To InstaChat</h1>
               <p className="text-base-content/60">Sign in to your account</p>
             </div>
           </div>
@@ -48,7 +48,7 @@ const LoginPage = () => {
                 </div>
                 <input
                   type="email"
-                  className={`input input-bordered w-full pl-10`}
+                  className={`input input-bordered w-full pl-10 mt-2`}
                   placeholder="you@email.com"
                   value={formData.email}
                   onChange={(e) =>
@@ -60,7 +60,7 @@ const LoginPage = () => {
 
             <div className="form-control">
               <label className="label">
-                <span className="label-text font-medium">Password</span>
+                <span className="label-text font-medium ">Password</span>
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -68,7 +68,7 @@ const LoginPage = () => {
                 </div>
                 <input
                   type={showPassword ? "text" : "password"}
-                  className={`input input-bordered w-full pl-10`}
+                  className={`input input-bordered w-full pl-10 mt-2`}
                   placeholder="••••••••"
                   value={formData.password}
                   onChange={(e) =>
@@ -117,7 +117,7 @@ const LoginPage = () => {
       </div>
 
       <AuthImagePattern
-        title={"Welcome to Insta Chat  !"}
+        title={"Welcome to InstaChat  !"}
         subtitle={
           "sign in to start a conversation with your friends and acquaintances"
         }

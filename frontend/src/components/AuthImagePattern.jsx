@@ -4,7 +4,7 @@ const AuthImagePattern = ({ title, subtitle }) => {
   const messages = [
     { text: "Hello!", isUser: false },
     { text: "Hi! How are you?", isUser: true },
-    { text: "I'm good, thanks! Excited to try Insta app!", isUser: false },
+    { text: "I'm good, thanks! Excited to try InstaChat app!", isUser: false },
     { text: "Awesome! Let's chat 😊🚀", isUser: true },
   ];
 

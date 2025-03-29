@@ -47,9 +47,9 @@ const SignUpPage = () => {
   return (
     <div className="min-h-screen flex flex-col lg:grid lg:grid-cols-5">
       {/* Left Side */}
-      <div className="lg:col-span-2 flex flex-col justify-start items-center p-6 sm:p-12 bg-gradient-to-b from-[#00fbffdb] to-[#8360C3] font-sans w-full">
+      <div className="hidden lg:flex  lg:col-span-2 flex flex-col justify-start items-center p-6 sm:p-12 bg-gradient-to-b from-[#00fbffdb] to-[#8360C3] font-sans w-full">
         <MessageSquareMore className="size-20 mt-15" />
-        <h1 className="font-bold text-2xl">Insta Chat</h1>
+        <h1 className="font-bold text-2xl">InstaChat</h1>
         <div className="w-full max-w-md space-y-8">
           <div className="text-center mt-15">
             <div className="flex flex-col items-center gap-2 group">
@@ -64,7 +64,7 @@ const SignUpPage = () => {
       </div>
 
       {/* Right Side */}
-      <div className="lg:col-span-3 flex flex-col justify-center items-center p-6 sm:p-12 w-full">
+      <div className="lg:col-span-3 flex flex-col justify-center items-center p-6 sm:p-12 w-full mt-20">
         <div className="w-full max-w-md space-y-8">
           {/* Logo */}
           <div className="text-center mb-8">
@@ -74,7 +74,7 @@ const SignUpPage = () => {
               </div>
               <h1 className="text-2xl font-bold mt-2">Create Account</h1>
               <p className="text-base-content/60">
-                Get started with your free account
+                Get started with your create account
               </p>
             </div>
           </div>
@@ -90,7 +90,7 @@ const SignUpPage = () => {
                 </div>
                 <input
                   type="text"
-                  className="input input-bordered w-full pl-10"
+                  className="input input-bordered w-full pl-10 mt-2"
                   placeholder="Your Fullname"
                   value={formData.fullName}
                   onChange={(e) =>
@@ -110,7 +110,7 @@ const SignUpPage = () => {
                 </div>
                 <input
                   type="email"
-                  className="input input-bordered w-full pl-10"
+                  className="input input-bordered w-full pl-10 mt-2"
                   placeholder="Natan@gmail.com"
                   value={formData.email}
                   onChange={(e) =>
@@ -129,8 +129,8 @@ const SignUpPage = () => {
                 </div>
                 <input
                   type={showPassword ? "text" : "password"}
-                  className="input input-bordered w-full pl-10"
-                  placeholder="*****"
+                  className="input input-bordered w-full pl-10 mt-2"
+                  placeholder="••••••••"
                   value={formData.password}
                   onChange={(e) =>
                     setFormData({ ...formData, password: e.target.value })
