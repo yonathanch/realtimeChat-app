@@ -5,22 +5,22 @@
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "frontend/build"
+        "distDir": "frontend/dist" // Output build Vite berada di frontend/dist
       }
     },
     {
       "src": "backend/server.js",
-      "use": "@vercel/node"
+      "use": "@vercel/node" // Untuk backend Express
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/backend/server.js"
+      "dest": "/backend/server.js" // Arahkan API ke server.js backend
     },
     {
       "src": "/(.*)",
-      "dest": "frontend/build/index.html"
+      "dest": "frontend/dist/index.html" // Arahkan frontend Vite ke dist/index.html
     }
   ]
 }
