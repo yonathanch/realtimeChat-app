@@ -88,6 +88,29 @@ export const useAuthStore = create((set, get) => ({
     }
   },
 
+  // updateProfile: async (data) => {
+  //   set({ isUpdatingProfile: true });
+
+  //   try {
+  //     console.log("Sending updateProfile request with:", data); // Debugging
+
+  //     // Jika tidak ada profilePict, hapus dari data
+  //     const filteredData = { ...data };
+  //     if (!filteredData.profilePict) {
+  //       delete filteredData.profilePict;
+  //     }
+
+  //     const res = await axiosInstance.put("/auth/update-profile", filteredData);
+  //     set({ authUser: res.data });
+  //     toast.success("Profile updated successfully");
+  //   } catch (error) {
+  //     console.error("Error in updateProfile:", error.response?.data || error);
+  //     toast.error(error.response?.data?.message || "Failed to update profile");
+  //   } finally {
+  //     set({ isUpdatingProfile: false });
+  //   }
+  // },
+
   connectSocket: () => {
     const { authUser } = get();
     if (!authUser || get().socket?.connected) return;

@@ -5,7 +5,6 @@ import User from "../models/user.model.js";
 config();
 
 const seedUsers = [
-  // Female Users
   {
     email: "yossi.putri@example.com",
     fullName: "Yossi",
@@ -121,7 +120,6 @@ const seedUsers = [
     profilePict: "https://i.pravatar.cc/150?img=29",
   },
 
-  // Male Users
   {
     email: "andi.firman@example.com",
     fullName: "Andi Firman",

@@ -87,23 +87,30 @@ export const logout = (req, res) => {
 
 export const updateProfile = async (req, res) => {
   try {
-    const { profilePict } = req.body;
+    const { fullName, email, profilePict } = req.body;
     const userId = req.user._id;
 
-    if (!profilePict) {
-      return res.status(400).json({ message: "Profile pic is required" });
+    // Pastikan user ada di database
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
 
-    const uploadResponse = await cloudinary.uploader.upload(profilePict);
-    const updateUser = await User.findByIdAndUpdate(
-      userId,
-      { profilePict: uploadResponse.secure_url },
-      { new: true }
-    );
+    // Update nama & email jika diberikan
+    if (fullName) user.fullName = fullName;
+    if (email) user.email = email;
 
-    res.status(200).json(updateUser);
+    // Hanya update profile picture jika ada gambar baru
+    if (profilePict) {
+      const uploadResponse = await cloudinary.uploader.upload(profilePict);
+      user.profilePict = uploadResponse.secure_url;
+    }
+
+    await user.save();
+
+    res.status(200).json(user);
   } catch (error) {
-    console.log("error is update profile", error);
+    console.log("Error in update profile:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };

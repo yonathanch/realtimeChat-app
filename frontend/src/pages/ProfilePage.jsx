@@ -1,10 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuthStore } from "../store/useAuthStore";
-import { Camera, Mail, User } from "lucide-react";
+import { Camera, Mail, User, Loader2 } from "lucide-react";
 
 const ProfilePage = () => {
   const { authUser, isUpdatingProfile, updateProfile } = useAuthStore();
+
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [selectedImg, setSelectionImg] = useState(null);
+
+  useEffect(() => {
+    if (authUser) {
+      setFullName(authUser.fullName || "");
+      setEmail(authUser.email || "");
+    }
+  }, [authUser]);
+
+  const handleSave = async () => {
+    if (!fullName.trim() || !email.trim()) {
+      alert("Full Name and Email cannot be empty.");
+      return;
+    }
+
+    setIsSaving(true);
+
+    try {
+      await updateProfile({ fullName, email });
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -29,11 +59,11 @@ const ProfilePage = () => {
             <p className="mt-2">Your Profile Information</p>
           </div>
 
-          {/* avatar image upload section */}
+          {/* Avatar Upload */}
           <div className="flex flex-col items-center gap-4">
             <div className="relative">
               <img
-                src={selectedImg || authUser.profilePict || "/avatar.png"}
+                src={selectedImg || authUser?.profilePict || "/avatar.png"}
                 alt="profile"
                 className="size-32 rounded-full object-cover border-4"
               />
@@ -62,27 +92,68 @@ const ProfilePage = () => {
             </p>
           </div>
 
+          {/* Input Fields */}
           <div className="space-y-6">
-            <div className="space-y-1.5">
-              <div className="text-sm text-zinc-400 flex items-center gap-2">
+            {/* Fullname */}
+            <div>
+              <label className="text-sm text-zinc-400 flex items-center gap-2">
                 <User className="w-4 h-4" />
                 Fullname
-              </div>
-              <p className="px-4 py-2.5 bg-base-200 rounded-lg border">
-                {authUser?.fullName}
-              </p>
+              </label>
+              {isEditing ? (
+                <input
+                  type="text"
+                  className="input input-bordered w-full"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                />
+              ) : (
+                <p className="px-4 py-2.5 bg-base-200 rounded-lg border">
+                  {fullName}
+                </p>
+              )}
             </div>
 
-            <div className="space-y-1.5">
-              <div className="text-sm text-zinc-400 flex items-center gap-2">
+            {/* Email */}
+            <div>
+              <label className="text-sm text-zinc-400 flex items-center gap-2">
                 <Mail className="w-4 h-4" />
-                Email Addres
-              </div>
-              <p className="px-4 py-2.5 bg-base-200 rounded-lg border">
-                {authUser?.email}
-              </p>
+                Email Address
+              </label>
+              {isEditing ? (
+                <input
+                  type="email"
+                  className="input input-bordered w-full"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              ) : (
+                <p className="px-4 py-2.5 bg-base-200 rounded-lg border">
+                  {email}
+                </p>
+              )}
             </div>
 
+            {/* Tombol Edit / Save */}
+            <div className="flex justify-end gap-2 mt-4">
+              {isEditing ? (
+                <button
+                  onClick={handleSave}
+                  className="btn btn-primary w-full"
+                  disabled={isSaving}
+                >
+                  {isSaving && <Loader2 className="w-5 h-5 animate-spin" />}
+                  Save
+                </button>
+              ) : (
+                <button
+                  onClick={() => setIsEditing(true)}
+                  className="btn btn-secondary w-full"
+                >
+                  Edit
+                </button>
+              )}
+            </div>
             <div className="mt-6 bg-base-300 rounded-xl p-6">
               <h2 className="text-lg font-medium  mb-4">Account Information</h2>
               <div className="space-y-3 text-sm">
